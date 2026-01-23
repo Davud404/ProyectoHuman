@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Fruit Vision System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="app-container">
+
+    <h1>Fruit Quality Analyzer</h1>
+
+    <!-- Cámara / Imagen -->
+    <div class="image-container">
+        <div class="image-container">
+            <img id="cameraFeed" src="http://localhost:8000/video_feed">
+            <div id="label" class="label hidden"></div>
+        </div>
+        <div id="label" class="label hidden"></div>
+    </div>
+
+    <!-- Controles -->
+    <div class="controls">
+        <button onclick="captureImage()">📸 Capturar imagen</button>
+
+        <label class="upload-btn">
+            📂 Subir imagen
+            <input type="file" accept="image/*" onchange="uploadImage(this)">
+        </label>
+    </div>
+
+    <!-- Feedback -->
+    <div id="feedback" class="feedback hidden">
+        <p>¿El resultado es correcto?</p>
+        <button class="yes" onclick="sendFeedback(true)">Sí</button>
+        <button class="no" onclick="sendFeedback(false)">No</button>
+    </div>
+
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
