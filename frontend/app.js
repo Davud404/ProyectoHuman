@@ -1,63 +1,61 @@
-const API_URL = "http://localhost:8000";
+console.log("✅ app.js cargado correctamente");
 
-let lastResult = null;
+const API = "http://localhost:8000";
 
-function captureImage() {
-    fetch(`${API_URL}/analyze/capture`, { method: "POST" })
-        .then(res => res.json())
-        .then(data => showResult(data))
-        .catch(() => alert("Error capturando imagen"));
+async function captureImage() {
+    const res = await fetch(`${API}/analyze/capture`, { method: "POST" });
+    const data = await res.json();
+    console.log("📦 RESPUESTA BACKEND:", data);
+    showResult(data);
 }
 
-function uploadImage(input) {
+async function uploadImage(input) {
     const file = input.files[0];
     if (!file) return;
 
     const formData = new FormData();
     formData.append("file", file);
 
-    fetch(`${API_URL}/analyze/upload`, {
+    const res = await fetch(`${API}/analyze/upload`, {
         method: "POST",
         body: formData
-    })
-    .then(res => res.json())
-    .then(data => {
-        const reader = new FileReader();
-        reader.onload = () => {
-            showResult(data, reader.result);
-        };
-        reader.readAsDataURL(file);
-    })
-    .catch(err => alert("Error subiendo imagen"));
+    });
+
+    const data = await res.json();
+    console.log("📦 RESPUESTA BACKEND:", data);
+    showResult(data);
 }
 
 function showResult(data) {
-    const label = document.getElementById("label");
-    const feedback = document.getElementById("feedback");
+    console.log("🧠 showResult recibe:", data);
 
-    label.innerText = `${data.fruit} - ${data.maturity}`;
-    label.className = `label ${data.maturity}`;
+    const label = document.getElementById("label");
     label.classList.remove("hidden");
 
-    feedback.classList.remove("hidden");
+    if (!data.fruit) {
+        label.innerText = "No se detectó fruta 😢";
+        return;
+    }
 
-    lastResult = data;
+    const fruitName = data.fruit.fruit;
+    const confidence = (data.fruit.confidence * 100).toFixed(1);
+    const ripeness = data.ripeness;
+
+    label.innerHTML = `
+        <strong>Fruta:</strong> ${fruitName}<br>
+        <strong>Confianza:</strong> ${confidence}%<br>
+        <strong>Madurez:</strong> ${ripeness}
+    `;
+
+    document.getElementById("feedback").classList.remove("hidden");
 }
 
-function sendFeedback(isCorrect) {
-    if (!lastResult) return;
-
-    fetch(`${API_URL}/feedback`, {
+async function sendFeedback(correct) {
+    await fetch(`${API}/feedback`, {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            fruit: lastResult.fruit,
-            maturity: lastResult.maturity,
-            correct: isCorrect
-        })
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ correct, timestamp: Date.now() })
     });
 
-    alert("Gracias por tu retroalimentación 🙌");
+    alert("¡Gracias por el feedback!");
 }

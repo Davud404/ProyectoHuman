@@ -10,5 +10,17 @@
         "maturity": "pasado",
         "correct": false,
         "timestamp": "2026-01-22T19:12:04.952420"
+    },
+    {
+        "fruit": "Pomelo",
+        "maturity": "verde",
+        "correct": false,
+        "timestamp": "2026-01-23T08:30:28.704391"
+    },
+    {
+        "fruit": "Banana",
+        "maturity": "indeterminado",
+        "correct": false,
+        "timestamp": "2026-01-23T16:19:03.632138"
     }
 ]

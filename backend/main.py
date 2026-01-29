@@ -3,15 +3,18 @@ import cv2
 import numpy as np
 import torch
 import os
+import shutil
 
 from model.loader import load_model, CLASSES
 from vision.preprocess import preprocess_image
 from vision.hsv import estimate_maturity
-from camera.webcam import get_frame
+from camera.webcam import capture_image
 from feedback.store import save_feedback
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import StreamingResponse
-from camera.webcam import get_frame
+from services.fruit_detector import detect_fruit
+from services.ripeness_detector import detect_ripeness
+from camera.webcam import capture_image, get_frame
 
 
 
@@ -55,6 +58,42 @@ def video_feed():
 
 app.mount("/assets", StaticFiles(directory="assets"), name="assets")
 
+os.makedirs("temp", exist_ok=True)
+
+# 📤 Subir imagen
+@app.post("/analyze/upload")
+async def analyze_upload(file: UploadFile = File(...)):
+    image_path = f"temp/{file.filename}"
+
+    with open(image_path, "wb") as buffer:
+        shutil.copyfileobj(file.file, buffer)
+
+    fruit_data = detect_fruit(image_path)
+    ripeness = detect_ripeness(image_path)
+
+    return {
+        "fruit": fruit_data,
+        "ripeness": ripeness
+    }
+
+
+# 📸 Capturar desde webcam
+@app.post("/analyze/capture")
+def analyze_capture():
+    image_path = capture_image()
+
+    if image_path is None:
+        return {"error": "No se pudo capturar imagen"}
+
+    fruit_data = detect_fruit(image_path)
+    ripeness = detect_ripeness(image_path)
+
+    return {
+        "fruit": fruit_data,
+        "ripeness": ripeness
+    }
+
+'''
 @app.post("/analyze/upload")
 async def analyze_upload(file: UploadFile = File(...)):
     image_bytes = await file.read()
@@ -67,7 +106,7 @@ async def analyze_upload(file: UploadFile = File(...)):
 def analyze_capture():
     image = get_frame()
     cv2.imwrite("assets/images/latest.jpg", image)
-    return analyze(image)
+    return analyze(image)'''
 
 def analyze(image):
     tensor = preprocess_image(image)

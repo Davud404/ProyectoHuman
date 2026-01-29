@@ -7,3 +7,12 @@ def get_frame():
     if not success:
         return None
     return frame
+
+
+def capture_image(path="temp/capture.jpg"):
+    ret, frame = camera.read()
+    if not ret:
+        return None
+
+    cv2.imwrite(path, frame)
+    return path
