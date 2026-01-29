@@ -1,5 +1,7 @@
 console.log("✅ app.js cargado correctamente");
 
+
+//const API = "http://10.20.202.249:8000";
 const API = "http://localhost:8000";
 
 async function captureImage() {
@@ -120,3 +122,59 @@ function showDetailedFeedback() {
     document.getElementById("feedback-main").classList.add("hidden");
     document.getElementById("feedback-detail").classList.remove("hidden");
 }
+
+let chart = null;
+
+function openHistory() {
+    document.getElementById("historyModal").classList.add("show");
+    loadChart();
+}
+
+function closeHistory() {
+    document.getElementById("historyModal").classList.remove("show");
+}
+
+
+/* Simulado por ahora (luego se conecta al backend) */
+async function loadChart() {
+    const res = await fetch(`${API}/feedback/stats`);
+    const stats = await res.json();
+
+    const ctx = document.getElementById("historyChart");
+
+    if (chart) chart.destroy();
+
+    chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: [
+                "Ambas correctas",
+                "Solo fruta correcta",
+                "Solo madurez correcta",
+                "Ambas incorrectas"
+            ],
+            datasets: [{
+                label: "Cantidad",
+                data: [
+                    stats.both_correct,
+                    stats.fruit_only,
+                    stats.maturity_only,
+                    stats.both_wrong
+                ],
+                backgroundColor: [
+                    "#2ecc71",
+                    "#f1c40f",
+                    "#e67e22",
+                    "#e74c3c"
+                ]
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: { beginAtZero: true }
+            }
+        }
+    });
+}
+

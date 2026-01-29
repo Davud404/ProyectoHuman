@@ -23,5 +23,40 @@
         "fruit_correct": true,
         "maturity_correct": false,
         "timestamp": "2026-01-29T10:35:51.987102"
+    },
+    {
+        "fruit_correct": true,
+        "maturity_correct": false,
+        "timestamp": "2026-01-29T10:53:31.571131"
+    },
+    {
+        "fruit_correct": true,
+        "maturity_correct": true,
+        "timestamp": "2026-01-29T10:54:22.037459"
+    },
+    {
+        "fruit_correct": true,
+        "maturity_correct": true,
+        "timestamp": "2026-01-29T10:57:03.382936"
+    },
+    {
+        "fruit_correct": false,
+        "maturity_correct": false,
+        "timestamp": "2026-01-29T11:05:55.070814"
+    },
+    {
+        "fruit_correct": true,
+        "maturity_correct": false,
+        "timestamp": "2026-01-29T11:10:49.513866"
+    },
+    {
+        "fruit_correct": true,
+        "maturity_correct": true,
+        "timestamp": "2026-01-29T11:11:00.235698"
+    },
+    {
+        "fruit_correct": true,
+        "maturity_correct": true,
+        "timestamp": "2026-01-29T11:16:15.938688"
     }
 ]

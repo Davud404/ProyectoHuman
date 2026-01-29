@@ -157,3 +157,8 @@ def feedback(data: dict):
     save_feedback(data)
     return {"status": "ok"}
 
+from feedback.store import get_feedback_stats
+
+@app.get("/feedback/stats")
+def feedback_stats():
+    return get_feedback_stats()

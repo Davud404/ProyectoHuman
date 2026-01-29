@@ -49,9 +49,19 @@
             <button onclick="sendDetailedFeedback(false, false)">Ambas</button>
         </div>
     </div>
+    <button class="history-btn" onclick="openHistory()">📊 Ver histórico</button>
+    <div id="historyModal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close" onclick="closeHistory()">✖</span>
+            <h2>Histórico de Feedback</h2>
+            <canvas id="historyChart"></canvas>
+        </div>
+    </div>
+
 
 </div>
 
 <script src="app.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
 </html>
