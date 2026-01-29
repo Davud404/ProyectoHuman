@@ -14,8 +14,14 @@
     <!-- Cámara -->
     <div class="image-container">
         <img id="cameraFeed" src="http://localhost:8000/video_feed">
-        <div id="label" class="label hidden"></div>
     </div>
+
+    <div id="label" class="label hidden"></div>
+
+    <div id="loading" class="loading hidden">
+        🔍 Analizando imagen...
+    </div>
+
 
     <!-- Controles -->
     <div class="controls">
@@ -30,8 +36,18 @@
     <!-- Feedback -->
     <div id="feedback" class="feedback hidden">
         <p>¿El resultado es correcto?</p>
-        <button class="yes" onclick="sendFeedback(true)">Sí</button>
-        <button class="no" onclick="sendFeedback(false)">No</button>
+
+        <div id="feedback-main">
+            <button class="yes" onclick="sendFeedback(true)">Sí</button>
+            <button class="no" onclick="showDetailedFeedback()">No</button>
+        </div>
+
+        <div id="feedback-detail" class="hidden">
+            <p>¿Qué estuvo incorrecto?</p>
+            <button onclick="sendDetailedFeedback(false, true)">Fruta</button>
+            <button onclick="sendDetailedFeedback(true, false)">Madurez</button>
+            <button onclick="sendDetailedFeedback(false, false)">Ambas</button>
+        </div>
     </div>
 
 </div>

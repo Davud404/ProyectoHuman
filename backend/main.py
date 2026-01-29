@@ -16,7 +16,25 @@ from services.fruit_detector import detect_fruit
 from services.ripeness_detector import detect_ripeness
 from camera.webcam import capture_image, get_frame
 
+FRUIT_TRANSLATION = {
+    "apple": "Manzana",
+    "avocado": "Aguacate",
+    "banana": "Banano",
+    "cherry": "Cereza",
+    "kiwi": "Kiwi",
+    "mango": "Mango",
+    "orange": "Naranja",
+    "pineapple": "Piña",
+    "strawberries": "Fresa",
+    "watermelon": "Sandía"
+}
 
+MATURITY_TRANSLATION = {
+    "Unripe": "Verde",
+    "Ripe": "Maduro",
+    "Overripe": "Pasado",
+    "Rotten": "Podrido"
+}
 
 
 app = FastAPI()
@@ -69,11 +87,17 @@ async def analyze_upload(file: UploadFile = File(...)):
         shutil.copyfileobj(file.file, buffer)
 
     fruit_data = detect_fruit(image_path)
-    ripeness = detect_ripeness(image_path)
+    raw_maturity = detect_ripeness(image_path)
+
+    fruit_en = fruit_data["fruit"]
+    fruit_es = FRUIT_TRANSLATION.get(fruit_en, fruit_en)
+
+    maturity_es = MATURITY_TRANSLATION.get(raw_maturity, "Desconocido")
 
     return {
-        "fruit": fruit_data,
-        "ripeness": ripeness
+        "fruit": fruit_es,
+        "confidence": fruit_data["confidence"],
+        "maturity": maturity_es
     }
 
 
@@ -86,11 +110,17 @@ def analyze_capture():
         return {"error": "No se pudo capturar imagen"}
 
     fruit_data = detect_fruit(image_path)
-    ripeness = detect_ripeness(image_path)
+    raw_maturity = detect_ripeness(image_path)
+
+    fruit_en = fruit_data["fruit"]
+    fruit_es = FRUIT_TRANSLATION.get(fruit_en, fruit_en)
+
+    maturity_es = MATURITY_TRANSLATION.get(raw_maturity, "Desconocido")
 
     return {
-        "fruit": fruit_data,
-        "ripeness": ripeness
+        "fruit": fruit_es,
+        "confidence": fruit_data["confidence"],
+        "maturity": maturity_es
     }
 
 '''

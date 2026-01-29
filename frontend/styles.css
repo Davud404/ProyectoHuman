@@ -21,6 +21,8 @@ body {
     border-radius: 12px;
     box-shadow: 0 0 20px rgba(0,0,0,0.2);
     text-align: center;
+    position: relative;
+
 }
 
 h1 {
@@ -46,17 +48,26 @@ h1 {
 }
 
 .label {
-    position: absolute;
-    top: 10px;
-    padding: 8px 12px;
-    border-radius: 8px;
+    margin: 16px auto 0 auto; /* 🔥 CENTRADO */
+    padding: 12px 18px;
+    border-radius: 12px;
+    font-size: 18px;
     font-weight: bold;
+    text-align: center;
+    width: fit-content;
     color: white;
 }
+
+
 
 .label.verde { background: green; }
 .label.maduro { background: orange; }
 .label.pasado { background: brown; }
+.label.desconocido {
+    background-color: #7f8c8d; /* gris elegante */
+    color: white;
+}
+
 
 .controls {
     margin-top: 15px;
@@ -98,3 +109,45 @@ button, .upload-btn {
 .hidden {
     display: none;
 }
+
+
+.label {
+    margin-top: 15px;
+    padding: 12px;
+    border-radius: 10px;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.label.verde {
+    background-color: #2ecc71; /* Verde */
+}
+
+.label.maduro {
+    background-color: #f1c40f; /* Amarillo */
+    color: #000;
+}
+
+.label.sobremaduro {
+    background-color: #e67e22; /* Naranja */
+}
+
+.label.podrido {
+    background-color: #e74c3c; /* Rojo */
+}
+
+.loading {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0,0,0,0.8);
+    color: white;
+    padding: 20px 30px;
+    border-radius: 12px;
+    font-size: 20px;
+    z-index: 10;
+}
+

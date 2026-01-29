@@ -11,11 +11,14 @@ def detect_ripeness(image_path):
         response = requests.post(url, files={"file": img})
 
     data = response.json()
-    print("🔍 RESPUESTA RIPENESS MODEL:", data)
-
 
     if "predictions" not in data or len(data["predictions"]) == 0:
-        return "unknown"
+        return "Unknown"
 
     best = max(data["predictions"], key=lambda x: x["confidence"])
-    return best["class"]
+
+    # Ejemplo: "Mango Unripe" → "Unripe"
+    raw_class = best["class"]
+    maturity = raw_class.split()[-1]
+
+    return maturity

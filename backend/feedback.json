@@ -1,26 +1,27 @@
 [
     {
-        "fruit": "Apple",
-        "maturity": "verde",
-        "correct": false,
-        "timestamp": "2026-01-22T19:11:58.922324"
+        "fruit_correct": true,
+        "maturity_correct": true,
+        "timestamp": "2026-01-29T10:24:19.166205"
     },
     {
-        "fruit": "Apple",
-        "maturity": "pasado",
-        "correct": false,
-        "timestamp": "2026-01-22T19:12:04.952420"
+        "fruit_correct": false,
+        "maturity_correct": true,
+        "timestamp": "2026-01-29T10:24:37.674550"
     },
     {
-        "fruit": "Pomelo",
-        "maturity": "verde",
-        "correct": false,
-        "timestamp": "2026-01-23T08:30:28.704391"
+        "fruit_correct": true,
+        "maturity_correct": false,
+        "timestamp": "2026-01-29T10:27:33.521329"
     },
     {
-        "fruit": "Banana",
-        "maturity": "indeterminado",
-        "correct": false,
-        "timestamp": "2026-01-23T16:19:03.632138"
+        "fruit_correct": true,
+        "maturity_correct": true,
+        "timestamp": "2026-01-29T10:28:16.164735"
+    },
+    {
+        "fruit_correct": true,
+        "maturity_correct": false,
+        "timestamp": "2026-01-29T10:35:51.987102"
     }
 ]
