@@ -58,5 +58,10 @@
         "fruit_correct": true,
         "maturity_correct": true,
         "timestamp": "2026-01-29T11:16:15.938688"
+    },
+    {
+        "fruit_correct": true,
+        "maturity_correct": true,
+        "timestamp": "2026-02-04T09:15:42.396277"
     }
 ]
